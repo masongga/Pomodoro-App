@@ -15,6 +15,7 @@
   "author": "masongga <auckmason@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.17",
     "electron-squirrel-startup": "^1.0.1"
   },
   "devDependencies": {
@@ -26,6 +27,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.10.2",
     "@electron-forge/plugin-fuses": "^7.10.2",
     "@electron/fuses": "^1.8.0",
+    "autoprefixer": "^10.4.21",
     "electron": "^39.1.1"
   },
   "repository": {

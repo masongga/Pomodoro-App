@@ -2,11 +2,84 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
+    <title>Pomodoro App</title>
+    <link rel="stylesheet" href="styles/tailwind.css" />
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="../scripts/app.js" />
   </head>
   <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
+    <h1 style="text-align: center; color: rgb(214, 214, 14)">
+      Welcome to my Pomodoro Study App
+    </h1>
+
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+      "
+    >
+      <div>
+        <p class="inputLabel">How long for Studying?</p>
+        <input
+          type="range"
+          min="5"
+          max="60"
+          value="25"
+          oninput="document.getElementById('studyValue').textContent = this.value"
+        />
+        <span id="studyValue">25</span> <span>minutes</span>
+      </div>
+
+      <div>
+        <p class="inputLabel">How long for Breaks?</p>
+        <input
+          type="range"
+          min="5"
+          max="25"
+          value="5"
+          oninput="document.getElementById('breakValue').textContent = this.value"
+        />
+        <span id="breakValue">5</span> <span>minutes</span>
+      </div>
+    </div>
+
+    <div>
+      <p class="inputLabel" style="text-align: center">
+        How many times would you like to run this
+      </p>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <select>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+    </div>
+
+    <div style="display: flex; justify-content: center; margin-top: 15px">
+      <button
+        id="timerButton"
+        class="timerButton"
+        style="
+          border: 1px solid;
+          border-radius: 7%;
+          margin: 15px;
+          padding: 8px;
+          padding-left: 12px;
+          padding-right: 12px;
+        "
+      >
+        Set Timer
+      </button>
+    </div>
   </body>
 </html>
