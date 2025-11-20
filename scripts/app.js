@@ -3,6 +3,7 @@ const studyTime = document.getElementById("studyTime");
 const breakTime = document.getElementById("breakTime");
 const outputTimer = document.getElementById("outputTimer");
 const cyclesSelect = document.getElementById("cyclesSelect");
+const cycleTimer = document.getElementById("cycleTimer");
 
 let timer;
 let intervalId;
@@ -37,6 +38,7 @@ function startTimer() {
     updateDisplay();
 
     if (timer <= 0) {
+      totalCycles--;
       clearInterval(intervalId);
       handleTimerComplete();
     }
@@ -47,6 +49,7 @@ function updateDisplay() {
   const minutes = Math.floor(timer / 60);
   const seconds = timer % 60;
   outputTimer.innerText = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  cycleTimer.innerText = totalCycles.toString();
 }
 
 function handleTimerComplete() {
