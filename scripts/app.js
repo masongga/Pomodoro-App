@@ -38,7 +38,6 @@ function startTimer() {
     updateDisplay();
 
     if (timer <= 0) {
-      totalCycles--;
       clearInterval(intervalId);
       handleTimerComplete();
     }
@@ -49,7 +48,7 @@ function updateDisplay() {
   const minutes = Math.floor(timer / 60);
   const seconds = timer % 60;
   outputTimer.innerText = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-  cycleTimer.innerText = totalCycles.toString();
+  cycleTimer.innerText = currentCycle.toString();
 }
 
 function handleTimerComplete() {
@@ -59,6 +58,10 @@ function handleTimerComplete() {
 
     if (currentCycle < totalCycles) {
       setTimeout(startTimer, 1000);
+      updateDisplay();
+    } else if (currentCycle == 0) {
+      currentCycle = 0;
+      updateDisplay();
     }
   } else {
     isStudyTime = true;
