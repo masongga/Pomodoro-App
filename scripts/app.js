@@ -12,7 +12,7 @@ let intervalId;
 let currentCycle = 0;
 let totalCycles;
 let displayCycles = 0;
-let isStudyTime = null;
+let isStudyTime = true;
 
 // button click to start the timer
 setTimerBtn.addEventListener("click", startPomodoro);
@@ -73,26 +73,30 @@ function handleTimerComplete() {
   if (isStudyTime) {
     isStudyTime = false;
     currentCycle++;
-    displayCycles--;
 
     if (currentCycle < totalCycles) {
       setTimeout(startTimer, 1000);
       updateDisplay();
     } else if (displayCycles <= 0) {
+      setTimeout(startTimer, 1000);
       resetDisplay();
     }
   } else {
     isStudyTime = true;
     setTimeout(startTimer, 1000);
+    displayCycles--;
+    updateDisplay();
   }
 }
 
 // changes visuals based on study or break
 function showState() {
-  if (isStudyTime) {
+  if (!isStudyTime) {
+    setTimeout(startTimer, 1000);
     cycleTimer.style.backgroundColor = "rgba(240, 134, 12, 1)";
     outputTimer.style.backgroundColor = "rgba(240, 134, 12, 1)";
   } else {
+    setTimeout(startTimer, 1000);
     cycleTimer.style.backgroundColor = "rgb(221, 221, 70)";
     outputTimer.style.backgroundColor = "rgb(221, 221, 70)";
   }
