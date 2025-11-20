@@ -92,11 +92,9 @@ function handleTimerComplete() {
 // changes visuals based on study or break
 function showState() {
   if (!isStudyTime) {
-    setTimeout(startTimer, 1000);
     cycleTimer.style.backgroundColor = "rgba(240, 134, 12, 1)";
     outputTimer.style.backgroundColor = "rgba(240, 134, 12, 1)";
   } else {
-    setTimeout(startTimer, 1000);
     cycleTimer.style.backgroundColor = "rgb(221, 221, 70)";
     outputTimer.style.backgroundColor = "rgb(221, 221, 70)";
   }
