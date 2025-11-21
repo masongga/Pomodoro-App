@@ -23,6 +23,7 @@ function startPomodoro() {
     clearInterval(intervalId);
   }
 
+  isStudyTime = true;
   currentCycle = 0;
   totalCycles = parseInt(cyclesSelect.value);
   displayCycles = totalCycles;
@@ -33,9 +34,9 @@ function startPomodoro() {
 // starts the actual timer counting down
 function startTimer() {
   if (isStudyTime) {
-    timer = parseInt(studyTime.value) * 60; // converts to seconds
+    timer = parseInt(studyTime.value) * 60; // converts to seconds for studying time
   } else {
-    timer = parseInt(breakTime.value) * 60;
+    timer = parseInt(breakTime.value) * 60; // gets the time for breaks
   }
 
   updateDisplay();
@@ -44,7 +45,11 @@ function startTimer() {
     timer--;
     updateDisplay();
 
-    if (timer <= 0) {
+    if (timer <= 0 && currentCycle >= totalCycles && isStudyTime == false) {
+      stopTimer();
+      isStudyTime = true;
+      resetDisplay();
+    } else if (timer <= 0) {
       clearInterval(intervalId);
       handleTimerComplete();
     }
@@ -71,17 +76,13 @@ function resetDisplay() {
 // handles what happens when the timer hits 0
 function handleTimerComplete() {
   if (isStudyTime) {
+    // if studying
     isStudyTime = false;
     currentCycle++;
-
-    if (currentCycle < totalCycles) {
-      setTimeout(startTimer, 1000);
-      updateDisplay();
-    } else if (displayCycles <= 0) {
-      setTimeout(startTimer, 1000);
-      resetDisplay();
-    }
+    setTimeout(startTimer, 1000);
+    updateDisplay();
   } else {
+    // if on a break
     isStudyTime = true;
     setTimeout(startTimer, 1000);
     displayCycles--;
@@ -98,4 +99,9 @@ function showState() {
     cycleTimer.style.backgroundColor = "rgb(221, 221, 70)";
     outputTimer.style.backgroundColor = "rgb(221, 221, 70)";
   }
+}
+
+function stopTimer() {
+  clearInterval(intervalId);
+  intervalId = false;
 }
