@@ -1,3 +1,8 @@
+const {
+  setInterval: nodeSetInterval,
+  clearInterval: nodeClearInterval,
+} = require("timers");
+
 // Links to HTML
 const setTimerBtn = document.getElementById("timerButton");
 const studyTime = document.getElementById("studyTime");
@@ -79,25 +84,29 @@ function startPomodoro() {
 
 // starts the actual timer counting down
 function startTimer() {
+  const startTime = Date.now();
+  let targetDuration;
+
   if (isStudyTime) {
-    timer = parseInt(studyTime.value) * 60; // converts to seconds for studying time
+    targetDuration = parseInt(studyTime.value) * 60 * 1000; // converts to seconds for studying time
   } else {
-    timer = parseInt(breakTime.value) * 60; // gets the time for breaks
+    targetDuration = parseInt(breakTime.value) * 60 * 1000; // gets the time for breaks
   }
 
-  updateDisplay();
+  const endTime = startTime + targetDuration;
 
-  intervalId = setInterval(() => {
-    timer--;
+  intervalId = nodeSetInterval(() => {
+    const remaining = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
+    timer = remaining;
     updateDisplay();
 
     if (timer <= 0 && currentCycle >= totalCycles && isStudyTime == false) {
-      studyAudio.play();
+      breakAudio.play();
       stopTimer();
       isStudyTime = true;
       resetDisplay();
     } else if (timer <= 0) {
-      clearInterval(intervalId);
+      nodeClearInterval(intervalId);
       handleTimerComplete();
     }
   }, 1000);
@@ -124,18 +133,18 @@ function resetDisplay() {
 async function handleTimerComplete() {
   if (isStudyTime) {
     // if studying
-    breakAudio.play();
+    studyAudio.play();
     isStudyTime = false;
     currentCycle++;
-    setTimeout(startTimer, 1000);
     updateDisplay();
+    startTimer();
   } else {
     // if on a break
-    studyAudio.play();
+    breakAudio.play();
     isStudyTime = true;
-    setTimeout(startTimer, 1000);
     displayCycles--;
     updateDisplay();
+    startTimer();
   }
 }
 
@@ -151,6 +160,6 @@ function showState() {
 }
 
 function stopTimer() {
-  clearInterval(intervalId);
+  nodeClearInterval(intervalId);
   intervalId = false;
 }
