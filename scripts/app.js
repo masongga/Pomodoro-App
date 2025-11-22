@@ -16,19 +16,8 @@ let totalCycles;
 let displayCycles = 0;
 let isStudyTime = true;
 
-let studySounds = [
-  { name: "Wakey Wakey", path: "../Audio/BreakEnd/wakey_wakey.mp3" },
-  {
-    name: "My Massive Weiner",
-    path: "../Audio/BreakEnd/my_massive_weiner.mp3",
-  },
-  {
-    name: "I Didn't See Nothing",
-    path: "../Audio/BreakEnd/i_didn_t_see_nothing.mp3",
-  },
-];
-
-let breakSounds = [
+// array of objects of each sound file
+let timerSounds = [
   { name: "Bunny Hopping", path: "../Audio/TimerEnd/bunny_hopping.mp3" },
   { name: "Great Song", path: "../Audio/TimerEnd/great_song.mp3" },
   { name: "Hippo Dance", path: "../Audio/TimerEnd/hippo_dance.mp3" },
@@ -38,18 +27,27 @@ let breakSounds = [
   { name: "Calm", path: "../Audio/TimerEnd/endStudy.mp3" },
   { name: "Bounce", path: "../Audio/TimerEnd/endBreak.mp3" },
   { name: "ringtone", path: "../Audio/TimerEnd/longer alarm.mp3" },
+  { name: "Wakey Wakey", path: "../Audio/TimerEnd/wakey_wakey.mp3" },
+  {
+    name: "My Massive Weiner",
+    path: "../Audio/TimerEnd/my_massive_weiner.mp3",
+  },
+  {
+    name: "I Didn't See Nothing",
+    path: "../Audio/TimerEnd/i_didn_t_see_nothing.mp3",
+  },
 ];
 
-for (let sound of studySounds) {
+for (let sound of timerSounds) {
   studyAlarmSound.add(new Option(sound.name, sound.path));
 }
 
-for (let sound of breakSounds) {
+for (let sound of timerSounds) {
   breakAlarmSound.add(new Option(sound.name, sound.path));
 }
 
-let studyAudio = new Audio(studySounds[0].path);
-let breakAudio = new Audio(breakSounds[0].path);
+let studyAudio = new Audio(timerSounds[0].path);
+let breakAudio = new Audio(timerSounds[0].path);
 studyAudio.volume = 0.2;
 breakAudio.volume = 0.2;
 
