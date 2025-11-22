@@ -5,6 +5,8 @@ const breakTime = document.getElementById("breakTime");
 const outputTimer = document.getElementById("outputTimer");
 const cyclesSelect = document.getElementById("cyclesSelect");
 const cycleTimer = document.getElementById("cycleTimer");
+const studyAlarmSound = document.getElementById("studyAlarmSound");
+const breakAlarmSound = document.getElementById("breakAlarmSound");
 
 // variables used throughout
 let timer;
@@ -13,9 +15,32 @@ let currentCycle = 0;
 let totalCycles;
 let displayCycles = 0;
 let isStudyTime = true;
-var audio = new Audio("../Audio/TimerEnd/bunny_hopping.mp3");
-let afterBreakAudio = new Audio("../Audio/BreakEnd/wakey_wakey.mp3");
-let endAudio = new Audio("../Audio/BreakEnd/my_massive_weiner.mp3");
+
+let studySounds = [
+  { name: "Wakey Wakey", path: "../Audio/BreakEnd/wakey_wakey.mp3" },
+  {
+    name: "My Massive Weiner",
+    path: "../Audio/BreakEnd/my_massive_weiner.mp3",
+  },
+];
+
+let breakSounds = [
+  { name: "Bunny Hopping", path: "../Audio/TimerEnd/bunny_hopping.mp3" },
+  { name: "Great Song", path: "../Audio/TimerEnd/great_song.mp3" },
+];
+
+for (let sound of studySounds) {
+  studyAlarmSound.add(new Option(sound.name, sound.path));
+}
+
+for (let sound of breakSounds) {
+  breakAlarmSound.add(new Option(sound.name, sound.path));
+}
+
+let studyAudio = new Audio(studySounds[0]);
+let breakAudio = new Audio(breakSounds[0]);
+studyAudio.volume = 0.2;
+breakAudio.volume = 0.2;
 
 // button click to start the timer
 setTimerBtn.addEventListener("click", startPomodoro);
@@ -49,7 +74,7 @@ function startTimer() {
     updateDisplay();
 
     if (timer <= 0 && currentCycle >= totalCycles && isStudyTime == false) {
-      endAudio.play();
+      breakAudio.play();
       stopTimer();
       isStudyTime = true;
       resetDisplay();
@@ -81,14 +106,14 @@ function resetDisplay() {
 async function handleTimerComplete() {
   if (isStudyTime) {
     // if studying
-    audio.play();
+    studyAudio.play();
     isStudyTime = false;
     currentCycle++;
     setTimeout(startTimer, 1000);
     updateDisplay();
   } else {
     // if on a break
-    afterBreakAudio.play();
+    breakAudio.play();
     isStudyTime = true;
     setTimeout(startTimer, 1000);
     displayCycles--;
@@ -99,8 +124,8 @@ async function handleTimerComplete() {
 // changes visuals based on study or break
 function showState() {
   if (!isStudyTime) {
-    cycleTimer.style.backgroundColor = "rgba(240, 134, 12, 1)";
-    outputTimer.style.backgroundColor = "rgba(240, 134, 12, 1)";
+    cycleTimer.style.backgroundColor = "rgba(255, 123, 255, 1)";
+    outputTimer.style.backgroundColor = "rgba(255, 123, 255, 1)";
   } else {
     cycleTimer.style.backgroundColor = "rgb(221, 221, 70)";
     outputTimer.style.backgroundColor = "rgb(221, 221, 70)";

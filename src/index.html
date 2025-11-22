@@ -19,6 +19,7 @@
         gap: 15px;
       "
     >
+      <!-- study time setter -->
       <div>
         <p class="inputLabel">How long for Studying?</p>
         <input
@@ -32,6 +33,7 @@
         <span id="studyValue">25</span> <span>minutes</span>
       </div>
 
+      <!-- break time setter -->
       <div>
         <p class="inputLabel">How long for Breaks?</p>
         <input
@@ -46,6 +48,7 @@
       </div>
     </div>
 
+    <!-- number of cycles -->
     <div>
       <p class="inputLabel" style="text-align: center">
         How many times would you like to run this
@@ -66,6 +69,24 @@
       </select>
     </div>
 
+    <!-- alarm sounds -->
+    <div style="display: flex; gap: 50px; justify-content: center">
+      <div>
+        <h3>Choose a study alarm</h3>
+        <select id="studyAlarmSound">
+          <option></option>
+        </select>
+      </div>
+
+      <div>
+        <h3>Choose a break alarm</h3>
+        <select id="breakAlarmSound">
+          <option></option>
+        </select>
+      </div>
+    </div>
+
+    <!-- timers -->
     <div
       id="cycleTimer"
       style="
