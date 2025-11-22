@@ -13,6 +13,9 @@ let currentCycle = 0;
 let totalCycles;
 let displayCycles = 0;
 let isStudyTime = true;
+var audio = new Audio("../Audio/TimerEnd/bunny_hopping.mp3");
+let afterBreakAudio = new Audio("../Audio/BreakEnd/wakey_wakey.mp3");
+let endAudio = new Audio("../Audio/BreakEnd/my_massive_weiner.mp3");
 
 // button click to start the timer
 setTimerBtn.addEventListener("click", startPomodoro);
@@ -46,6 +49,7 @@ function startTimer() {
     updateDisplay();
 
     if (timer <= 0 && currentCycle >= totalCycles && isStudyTime == false) {
+      endAudio.play();
       stopTimer();
       isStudyTime = true;
       resetDisplay();
@@ -74,15 +78,17 @@ function resetDisplay() {
 }
 
 // handles what happens when the timer hits 0
-function handleTimerComplete() {
+async function handleTimerComplete() {
   if (isStudyTime) {
     // if studying
+    audio.play();
     isStudyTime = false;
     currentCycle++;
     setTimeout(startTimer, 1000);
     updateDisplay();
   } else {
     // if on a break
+    afterBreakAudio.play();
     isStudyTime = true;
     setTimeout(startTimer, 1000);
     displayCycles--;
