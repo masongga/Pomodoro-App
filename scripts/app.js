@@ -22,11 +22,22 @@ let studySounds = [
     name: "My Massive Weiner",
     path: "../Audio/BreakEnd/my_massive_weiner.mp3",
   },
+  {
+    name: "I Didn't See Nothing",
+    path: "../Audio/BreakEnd/i_didn_t_see_nothing.mp3",
+  },
 ];
 
 let breakSounds = [
   { name: "Bunny Hopping", path: "../Audio/TimerEnd/bunny_hopping.mp3" },
   { name: "Great Song", path: "../Audio/TimerEnd/great_song.mp3" },
+  { name: "Hippo Dance", path: "../Audio/TimerEnd/hippo_dance.mp3" },
+  { name: "Llora Llora", path: "../Audio/TimerEnd/llora_llora.mp3" },
+  { name: "Last Christmas", path: "../Audio/TimerEnd/last_christmas.mp3" },
+  { name: "Carol of the Bells", path: "../Audio/TimerEnd/carolOfTheBells.mp3" },
+  { name: "Calm", path: "../Audio/TimerEnd/endStudy.mp3" },
+  { name: "Bounce", path: "../Audio/TimerEnd/endBreak.mp3" },
+  { name: "ringtone", path: "../Audio/TimerEnd/longer alarm.mp3" },
 ];
 
 for (let sound of studySounds) {
@@ -37,10 +48,19 @@ for (let sound of breakSounds) {
   breakAlarmSound.add(new Option(sound.name, sound.path));
 }
 
-let studyAudio = new Audio(studySounds[0]);
-let breakAudio = new Audio(breakSounds[0]);
+let studyAudio = new Audio(studySounds[0].path);
+let breakAudio = new Audio(breakSounds[0].path);
 studyAudio.volume = 0.2;
 breakAudio.volume = 0.2;
+
+// listen for changes in drop downs and set the sound value
+studyAlarmSound.addEventListener("change", () => {
+  studyAudio.src = studyAlarmSound.value;
+});
+
+breakAlarmSound.addEventListener("change", () => {
+  breakAudio.src = breakAlarmSound.value;
+});
 
 // button click to start the timer
 setTimerBtn.addEventListener("click", startPomodoro);
@@ -74,7 +94,7 @@ function startTimer() {
     updateDisplay();
 
     if (timer <= 0 && currentCycle >= totalCycles && isStudyTime == false) {
-      breakAudio.play();
+      studyAudio.play();
       stopTimer();
       isStudyTime = true;
       resetDisplay();
@@ -106,14 +126,14 @@ function resetDisplay() {
 async function handleTimerComplete() {
   if (isStudyTime) {
     // if studying
-    studyAudio.play();
+    breakAudio.play();
     isStudyTime = false;
     currentCycle++;
     setTimeout(startTimer, 1000);
     updateDisplay();
   } else {
     // if on a break
-    breakAudio.play();
+    studyAudio.play();
     isStudyTime = true;
     setTimeout(startTimer, 1000);
     displayCycles--;
