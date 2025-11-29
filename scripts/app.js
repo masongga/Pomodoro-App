@@ -14,6 +14,7 @@ const studyAlarmSound = document.getElementById("studyAlarmSound");
 const breakAlarmSound = document.getElementById("breakAlarmSound");
 const timerModal = document.getElementById("modal");
 const formModal = document.getElementById("second-modal");
+const header = document.getElementById("title");
 
 // variables used throughout
 let timer;
@@ -76,6 +77,9 @@ function startPomodoro() {
   timerModal.style = "display: block";
   formModal.style = "display: none";
 
+  // change the header text
+  header.textContent = "Studying";
+
   if (intervalId) {
     clearInterval(intervalId);
   }
@@ -115,6 +119,7 @@ function startTimer() {
       //hide the form modal and show the timer
       timerModal.style = "display: none";
       formModal.style = "display: show";
+      header.textContent = "Pomodoro Study App";
     } else if (timer <= 0) {
       nodeClearInterval(intervalId);
       handleTimerComplete();
@@ -163,9 +168,11 @@ function showState() {
   if (!isStudyTime) {
     cycleTimer.style.backgroundColor = "rgba(255, 123, 255, 1)";
     outputTimer.style.backgroundColor = "rgba(255, 123, 255, 1)";
+    header.textContent = "Take a Break";
   } else {
     cycleTimer.style.backgroundColor = "rgb(221, 221, 70)";
     outputTimer.style.backgroundColor = "rgb(221, 221, 70)";
+    header.textContent = "Studying";
   }
 }
 

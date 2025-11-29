@@ -26,6 +26,7 @@ body {
 }
 
 .modal-content {
+  padding-top: 50px;
   padding: 20px;
 }
 
