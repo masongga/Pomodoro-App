@@ -16,3 +16,27 @@ body {
 .timerButton:hover {
   cursor: pointer;
 }
+
+.modal {
+  display: none;
+  /* position: fixed; */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.second-modal {
+  display: block;
+  /* position: fixed; */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.second-modal-content {
+  padding: 20px;
+}

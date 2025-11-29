@@ -12,6 +12,8 @@ const cyclesSelect = document.getElementById("cyclesSelect");
 const cycleTimer = document.getElementById("cycleTimer");
 const studyAlarmSound = document.getElementById("studyAlarmSound");
 const breakAlarmSound = document.getElementById("breakAlarmSound");
+const timerModal = document.getElementById("modal");
+const formModal = document.getElementById("second-modal");
 
 // variables used throughout
 let timer;
@@ -70,6 +72,10 @@ setTimerBtn.addEventListener("click", startPomodoro);
 
 // function to start the timer
 function startPomodoro() {
+  //hide the form modal and show the timer
+  timerModal.style = "display: block";
+  formModal.style = "display: none";
+
   if (intervalId) {
     clearInterval(intervalId);
   }
@@ -105,6 +111,10 @@ function startTimer() {
       stopTimer();
       isStudyTime = true;
       resetDisplay();
+
+      //hide the form modal and show the timer
+      timerModal.style = "display: none";
+      formModal.style = "display: show";
     } else if (timer <= 0) {
       nodeClearInterval(intervalId);
       handleTimerComplete();

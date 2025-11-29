@@ -8,133 +8,141 @@
   </head>
   <body>
     <h1 style="text-align: center; color: rgb(214, 214, 14)">
-      Welcome to my Pomodoro Study App
+      Pomodoro Study App
     </h1>
 
-    <div
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 15px;
-      "
-    >
-      <!-- study time setter -->
-      <div>
-        <p class="inputLabel">How long for Studying?</p>
-        <input
-          id="studyTime"
-          type="range"
-          min="1"
-          max="60"
-          value="25"
-          oninput="document.getElementById('studyValue').textContent = this.value"
-        />
-        <span id="studyValue">25</span> <span>minutes</span>
+    <div class="second-modal" id="second-modal">
+      <div class="second-modal-content">
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+          "
+        >
+          <!-- study time setter -->
+          <div>
+            <p class="inputLabel">How long for Studying?</p>
+            <input
+              id="studyTime"
+              type="range"
+              min="1"
+              max="60"
+              value="25"
+              oninput="document.getElementById('studyValue').textContent = this.value"
+            />
+            <span id="studyValue">25</span> <span>minutes</span>
+          </div>
+
+          <!-- break time setter -->
+          <div>
+            <p class="inputLabel">How long for Breaks?</p>
+            <input
+              id="breakTime"
+              type="range"
+              min="1"
+              max="25"
+              value="5"
+              oninput="document.getElementById('breakValue').textContent = this.value"
+            />
+            <span id="breakValue">5</span> <span>minutes</span>
+          </div>
+        </div>
+
+        <!-- number of cycles -->
+        <div>
+          <p class="inputLabel" style="text-align: center">
+            How many times would you like to run this
+          </p>
+        </div>
+        <div style="display: flex; justify-content: center">
+          <select id="cyclesSelect">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+
+        <!-- alarm sounds -->
+        <div style="display: flex; gap: 50px; justify-content: center">
+          <div style="display: grid; align-items: center">
+            <h3>Choose a study alarm</h3>
+            <select id="studyAlarmSound">
+              <option></option>
+            </select>
+          </div>
+
+          <div style="display: grid; align-items: center">
+            <h3>Choose a break alarm</h3>
+            <select id="breakAlarmSound">
+              <option></option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; margin-top: 15px">
+          <button
+            id="timerButton"
+            class="timerButton"
+            style="
+              border: 1px solid;
+              border-radius: 7%;
+              margin: 15px;
+              padding: 8px;
+              padding-left: 12px;
+              padding-right: 12px;
+            "
+          >
+            Set Timer
+          </button>
+        </div>
       </div>
+    </div>
 
-      <!-- break time setter -->
-      <div>
-        <p class="inputLabel">How long for Breaks?</p>
-        <input
-          id="breakTime"
-          type="range"
-          min="1"
-          max="25"
-          value="5"
-          oninput="document.getElementById('breakValue').textContent = this.value"
-        />
-        <span id="breakValue">5</span> <span>minutes</span>
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <!-- timers -->
+        <div
+          id="cycleTimer"
+          style="
+            background-color: rgb(221, 221, 70);
+            border-radius: 32px;
+            color: black;
+            margin-left: 25%;
+            margin-right: 25%;
+            margin-top: 5%;
+            text-align: center;
+            font-weight: bold;
+            font-size: x-large;
+          "
+        >
+          0
+        </div>
+        <div
+          id="outputTimer"
+          style="
+            background-color: rgb(221, 221, 70);
+            border-radius: 32px;
+            color: black;
+            margin-left: 25%;
+            margin-right: 25%;
+            margin-top: 5%;
+            text-align: center;
+            font-weight: bold;
+            font-size: x-large;
+          "
+        >
+          00:00
+        </div>
       </div>
-    </div>
-
-    <!-- number of cycles -->
-    <div>
-      <p class="inputLabel" style="text-align: center">
-        How many times would you like to run this
-      </p>
-    </div>
-    <div style="display: flex; justify-content: center">
-      <select id="cyclesSelect">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </select>
-    </div>
-
-    <!-- alarm sounds -->
-    <div style="display: flex; gap: 50px; justify-content: center">
-      <div style="display: grid; align-items: center">
-        <h3>Choose a study alarm</h3>
-        <select id="studyAlarmSound">
-          <option></option>
-        </select>
-      </div>
-
-      <div style="display: grid; align-items: center">
-        <h3>Choose a break alarm</h3>
-        <select id="breakAlarmSound">
-          <option></option>
-        </select>
-      </div>
-    </div>
-
-    <!-- timers -->
-    <div
-      id="cycleTimer"
-      style="
-        background-color: rgb(221, 221, 70);
-        border-radius: 32px;
-        color: black;
-        margin-left: 25%;
-        margin-right: 25%;
-        margin-top: 5%;
-        text-align: center;
-        font-weight: bold;
-        font-size: x-large;
-      "
-    >
-      0
-    </div>
-    <div
-      id="outputTimer"
-      style="
-        background-color: rgb(221, 221, 70);
-        border-radius: 32px;
-        color: black;
-        margin-left: 25%;
-        margin-right: 25%;
-        margin-top: 5%;
-        text-align: center;
-        font-weight: bold;
-        font-size: x-large;
-      "
-    >
-      00:00
-    </div>
-
-    <div style="display: flex; justify-content: center; margin-top: 15px">
-      <button
-        id="timerButton"
-        class="timerButton"
-        style="
-          border: 1px solid;
-          border-radius: 7%;
-          margin: 15px;
-          padding: 8px;
-          padding-left: 12px;
-          padding-right: 12px;
-        "
-      >
-        Set Timer
-      </button>
     </div>
     <script src="../scripts/app.js"></script>
   </body>
