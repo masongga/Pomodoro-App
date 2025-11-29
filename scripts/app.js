@@ -15,6 +15,8 @@ const breakAlarmSound = document.getElementById("breakAlarmSound");
 const timerModal = document.getElementById("modal");
 const formModal = document.getElementById("second-modal");
 const header = document.getElementById("title");
+const pauseButton = document.getElementById("pauseButton");
+const stopButton = document.getElementById("stopButton");
 
 // variables used throughout
 let timer;
@@ -23,6 +25,8 @@ let currentCycle = 0;
 let totalCycles;
 let displayCycles = 0;
 let isStudyTime = true;
+let isPaused = false;
+let remainingTime = 0;
 
 // array of objects of each sound file
 let timerSounds = [
@@ -71,6 +75,12 @@ breakAlarmSound.addEventListener("change", () => {
 // button click to start the timer
 setTimerBtn.addEventListener("click", startPomodoro);
 
+// pause button
+pauseButton.addEventListener("click", pauseTimer);
+
+// stop button
+stopButton.addEventListener("click", stopTimer);
+
 // function to start the timer
 function startPomodoro() {
   //hide the form modal and show the timer
@@ -97,10 +107,16 @@ function startTimer() {
   const startTime = Date.now();
   let targetDuration;
 
-  if (isStudyTime) {
-    targetDuration = parseInt(studyTime.value) * 60 * 1000; // converts to seconds for studying time
+  if (isPaused && remainingTime > 0) {
+    targetDuration = remainingTime * 1000;
+    isPaused = false;
+    remainingTime = 0;
   } else {
-    targetDuration = parseInt(breakTime.value) * 60 * 1000; // gets the time for breaks
+    if (isStudyTime) {
+      targetDuration = parseInt(studyTime.value) * 60 * 1000; // converts to seconds for studying time
+    } else {
+      targetDuration = parseInt(breakTime.value) * 60 * 1000; // gets the time for breaks
+    }
   }
 
   const endTime = startTime + targetDuration;
@@ -113,13 +129,13 @@ function startTimer() {
     if (timer <= 0 && currentCycle >= totalCycles && isStudyTime == false) {
       breakAudio.play();
       stopTimer();
-      isStudyTime = true;
-      resetDisplay();
+      // isStudyTime = true;
+      // resetDisplay();
 
-      //hide the form modal and show the timer
-      timerModal.style = "display: none";
-      formModal.style = "display: show";
-      header.textContent = "Pomodoro Study App";
+      // //hide the form modal and show the timer
+      // timerModal.style = "display: none";
+      // formModal.style = "display: show";
+      // header.textContent = "Pomodoro Study App";
     } else if (timer <= 0) {
       nodeClearInterval(intervalId);
       handleTimerComplete();
@@ -179,4 +195,26 @@ function showState() {
 function stopTimer() {
   nodeClearInterval(intervalId);
   intervalId = false;
+  isStudyTime = true;
+  isPaused = false;
+  remainingTime = 0;
+  pauseButton.textContent = "Pause";
+  resetDisplay();
+
+  //hide the form modal and show the timer
+  timerModal.style = "display: none";
+  formModal.style = "display: block";
+  header.textContent = "Pomodoro Study App";
+}
+
+function pauseTimer() {
+  if (intervalId && !isPaused) {
+    nodeClearInterval(intervalId);
+    remainingTime = timer;
+    isPaused = true;
+    pauseButton.textContent = "Resume";
+  } else if (isPaused) {
+    pauseButton.textContent = "Pause";
+    startTimer();
+  }
 }
