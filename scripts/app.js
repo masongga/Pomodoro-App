@@ -129,13 +129,6 @@ function startTimer() {
     if (timer <= 0 && currentCycle >= totalCycles && isStudyTime == false) {
       breakAudio.play();
       stopTimer();
-      // isStudyTime = true;
-      // resetDisplay();
-
-      // //hide the form modal and show the timer
-      // timerModal.style = "display: none";
-      // formModal.style = "display: show";
-      // header.textContent = "Pomodoro Study App";
     } else if (timer <= 0) {
       nodeClearInterval(intervalId);
       handleTimerComplete();
